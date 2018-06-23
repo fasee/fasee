@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>选项卡</title>
+		<style>
+			.xxk{
+				width: 500px;
+				height: 400px;
+				margin: 30px auto;
+				border: 2px solid green;
+				text-align: center;
+				font-size: 40px;
+			}
+			.xxk div{
+				width: 300px;
+				height: 300px;
+				margin: 30px auto;
+				border: 2px solid red;
+				text-align: center;
+				font-size: 40px;
+				display: none;
+			}
+			.xxk .xian{display: block;}
+		</style>
+		<script type="text/javascript">
+			/*window.onload = function(){
+				//获取节点
+				var ka = document.getElementById("ka");
+				var oBtn = ka.getElementsByTagName("input");
+				var oDiv = ka.getElementsByTagName("div");
+				console.log(ka);
+				console.log(oBtn);
+				console.log(oDiv);
+
+				for(var i=0;i<oBtn.length;i++){
+					oBtn[i].index = i;//自定义的index属性，放按钮的索引号
+					oBtn[i].onclick = function(){
+						//隐藏所有div，去掉按钮背景色
+						for(var j=0;j<oDiv.length;j++){
+	        				oDiv[j].style.display="none";
+	        				oBtn[j].style.background = "";
+	   					}
+	   					//让当前按钮变黄
+						this.style.background = "yellow";
+						//让和点击的按钮对应的div显示出来
+	    				oDiv[this.index].style.display = "block";
+					}
+				}
+			}*/
+
+			/*//第一次变形，函数内不再嵌套函数
+			var ka,oBtn,oDiv
+			//1.多个函数内要使用的变量，声明在函数外
+			//2.加载函数只赋值和给初始函数
+			window.onload = function(){
+				//获取节点
+				ka = document.getElementById("ka");
+				oBtn = ka.getElementsByTagName("input");
+				oDiv = ka.getElementsByTagName("div");
+				console.log(ka);
+				console.log(oBtn);
+				console.log(oDiv);
+				inite();
+
+				//给按钮加点击事件
+				function inite(){
+					for (var i=0;i<oBtn.length;i++){
+						oBtn[i].index = i;//自定义的index属性，放按钮的索引号
+						oBtn[i].onclick = change;
+					}
+				}
+
+				//函数功能：给按钮加点击事件之后要调用的函数
+				function change(){
+					for(var j=0;j<oDiv.length;j++){
+		        				oDiv[j].style.display="none";
+		        				oBtn[j].style.background = "";
+		   			}
+					//让当前按钮变黄
+					this.style.background = "yellow";
+					//让和点击的按钮对应的div显示出来
+					oDiv[this.index].style.display = "block";
+				}
+			}*/
+		/*//第二次变形，在window中创建对象，将全局属性作为实例化对象的属性，将调用的函数作为实例化对象的方法
+		//1.构造函数
+		function Tab(){
+			this.ka = document.getElementById("ka");
+			this.oBtn = ka.getElementsByTagName("input");
+			this.oDiv = ka.getElementsByTagName("div");
+		}
+
+		//2.将循环按钮的函数作为原型的方法，并添加this指向，此时this指向的是对象
+		Tab.prototype.init = function(){
+			var that = this;//this指的是实例化对象并赋值到了that中
+			for (var i=0;i<this.oBtn.length;i++){
+						this.oBtn[i].index = i;//自定义的index属性，放按钮的索引号
+						this.oBtn[i].onclick = function(){
+							that.change(this);
+						}//change前的this指向按钮
+					}
+		}
+
+		//3.将给点击事件之后要调用的函数作为原型的方法，也添加this指向，此时指向的是按钮
+		Tab.prototype.change = function(obj){
+			for(var j=0;j<this.oDiv.length;j++){
+    				this.oDiv[j].style.display="none";
+    				this.oBtn[j].style.background = "";
+		   	}
+			//让当前按钮变黄
+			obj.style.background = "yellow";
+			//让和点击的按钮对应的div显示出来
+			this.oDiv[obj.index].style.display = "block";
+		}
+		//4.实例化对象，调用对象的方法
+		window.onload = function(){
+			var xuan1 = new Tab();//实例化对象
+			xuan1.init();//调用方法
+		}*/
+		
+		//第四次变形，给构造函数传参，多次调用生成实例化对象
+		//1.构造函数
+		function Tab(idming){
+			this.ka = document.getElementById(idming);
+			this.oBtn = this.ka.getElementsByTagName("input");
+			this.oDiv = this.ka.getElementsByTagName("div");
+		}
+
+		//2.将循环按钮的函数作为原型的方法，并添加this指向，此时this指向的是对象
+		Tab.prototype.init = function(){
+			var that = this;//this指的是实例化对象并赋值到了that中
+			for (var i=0;i<this.oBtn.length;i++){
+						this.oBtn[i].index = i;//自定义的index属性，放按钮的索引号
+						this.oBtn[i].onclick = function(){
+							that.change(this);
+						}//change前的this指向按钮
+					}
+		}
+
+		//3.将给点击事件之后要调用的函数作为原型的方法，也添加this指向，此时指向的是按钮
+		Tab.prototype.change = function(obj){
+			for(var j=0;j<this.oDiv.length;j++){
+    				this.oDiv[j].style.display="none";
+    				this.oBtn[j].style.background = "";
+		   	}
+			//让当前按钮变黄
+			obj.style.background = "yellow";
+			//让和点击的按钮对应的div显示出来
+			this.oDiv[obj.index].style.display = "block";
+		}
+		//4.实例化对象，调用对象的方法
+		window.onload = function(){
+			var xuan1 = new Tab();//实例化对象
+			xuan1.init();//调用方法
+		}
+		//4.实例化对象，调用对象的方法
+		window.onload = function(){
+			var xuan1 = new Tab("ka");//实例化对象
+			xuan1.init();//调用方法
+		
+			var xuan2 = new Tab("la");//实例化对象
+			xuan2.init();//调用方法
+		}
+
+		</script>
+	</head>
+	<body>
+		<div class="xxk" id="ka">
+			<!-- 选项 -->
+			<input type="button" value="生鲜" style="background: yellow;">
+			<input type="button" value="服装">
+			<input type="button" value="文具">
+			<!-- 卡片 -->
+			<div class="xian">虾</div>
+			<div>衣服</div>
+			<div>圆珠笔</div>
+		</div>
+		<div class="xxk" id="la">
+			<!-- 选项 -->
+			<input type="button" value="生鲜" style="background: yellow;">
+			<input type="button" value="服装">
+			<input type="button" value="文具">
+			<!-- 卡片 -->
+			<div class="xian">虾</div>
+			<div>衣服</div>
+			<div>圆珠笔</div>
+		</div>
+	</body>
+</html>
